@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solucionar PC Lenta - ju4n.Fix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --light: #f5f5f5;
+            --gray: #8a8a8a;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--primary);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--highlight);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--highlight);
+        }
+
+        .logo i {
+            color: var(--highlight);
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--highlight);
+        }
+
+        /* Solución detallada */
+        .solution-container {
+            padding: 3rem 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .solution-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .solution-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .problem-icon {
+            background-color: var(--accent);
+            color: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .difficulty {
+            display: inline-block;
+            background-color: #e0f2ff;
+            color: var(--accent);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .time-estimate {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .time-estimate i {
+            margin-right: 8px;
+        }
+
+        /* Pasos */
+        .steps-container {
+            margin-bottom: 3rem;
+        }
+
+        .step {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--accent);
+        }
+
+        .step-number {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .step h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .step-content {
+            margin-bottom: 1.5rem;
+        }
+
+        .step-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem auto;
+            display: block;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Consejos adicionales */
+        .tips-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+            border-top: 4px solid var(--highlight);
+        }
+
+        .tips-container h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .tip {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tip:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .tip-icon {
+            background-color: #f0f8ff;
+            color: var(--accent);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* Contacto */
+        .contact-section {
+            text-align: center;
+            padding: 3rem 0;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+
+        .contact-section h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .contact-link:hover {
+            background-color: var(--highlight);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo span {
+            color: var(--highlight);
+        }
+
+        .copyright {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .solution-header h1 {
+                font-size: 2rem;
+            }
+            
+            .step {
+                padding: 1.5rem;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .contact-link {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-screwdriver-wrench"></i>
+                    <span>ju4n</span>.Fix
+                </a>
+                
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Volver a problemas</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Solución Detallada -->
+    <div class="container solution-container">
+        <div class="solution-header">
+            <div class="problem-icon">
+                <i class="fas fa-tachometer-alt"></i>
+            </div>
+            <h1>Solucionar PC Lenta</h1>
+            <div class="difficulty">Dificultad: Media</div>
+            <div class="time-estimate">
+                <i class="far fa-clock"></i> Tiempo estimado: 20-30 minutos
+            </div>
+        </div>
+
+        <div class="steps-container">
+            <!-- Paso 1 -->
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Reinicia tu computadora</h3>
+                <div class="step-content">
+                    <p>Antes de cualquier solución, reinicia tu PC. Esto puede resolver problemas temporales y liberar memoria RAM.</p>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Guarda todo tu trabajo</li>
+                        <li>Cierra todos los programas</li>
+                        <li>Haz clic en Inicio > Reiniciar</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Paso 2 -->
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Libera espacio en disco</h3>
+                <div class="step-content">
+                    <p>Un disco duro casi lleno ralentiza significativamente tu PC. Libera al menos 15-20% del espacio total.</p>
+                    <p><strong>Para Windows 10/11:</strong></p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Abre "Configuración" (Windows + I)</li>
+                        <li>Ve a "Sistema" > "Almacenamiento"</li>
+                        <li>Haz clic en "Archivos temporales"</li>
+                        <li>Selecciona lo que quieres eliminar (archivos temporales, papelera de reciclaje)</li>
+                        <li>Haz clic en "Quitar archivos"</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Paso 3 -->
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Desactiva programas de inicio</h3>
+                <div class="step-content">
+                    <p>Muchos programas se inician automáticamente con Windows, ralentizando el arranque.</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Presiona Ctrl + Shift + Esc para abrir el Administrador de tareas</li>
+                        <li>Haz clic en la pestaña "Inicio"</li>
+                        <li>Identifica los programas que no necesitas que se inicien automáticamente</li>
+                        <li>Haz clic derecho en ellos y selecciona "Deshabilitar"</li>
+                        <li>Mantén habilitados solo los esenciales (antivirus, controladores)</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Paso 4 -->
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Ejecuta una limpieza de disco y desfragmentación</h3>
+                <div class="step-content">
+                    <p>Estas herramientas del sistema optimizan el almacenamiento y mejoran el rendimiento.</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>En la barra de búsqueda de Windows, escribe "Liberador de espacio en disco"</li>
+                        <li>Selecciona la unidad C: (o la principal)</li>
+                        <li>Haz clic en "Aceptar" y espera a que analice</li>
+                        <li>Marca las casillas de los archivos a eliminar</li>
+                        <li>Haz clic en "Aceptar" para limpiar</li>
+                        <li>Para desfragmentar, busca "Desfragmentar y optimizar unidades"</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Paso 5 -->
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3>Actualiza controladores y Windows</h3>
+                <div class="step-content">
+                    <p>Los controladores obsoletos pueden causar lentitud. Mantén todo actualizado.</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Abre "Configuración" (Windows + I)</li>
+                        <li>Ve a "Actualización y seguridad" > "Windows Update"</li>
+                        <li>Haz clic en "Buscar actualizaciones"</li>
+                        <li>Instala todas las actualizaciones disponibles</li>
+                        <li>Para controladores, visita el sitio web del fabricante de tu PC</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Consejos adicionales -->
+        <div class="tips-container">
+            <h2>Consejos Adicionales</h2>
+            
+            <div class="tip">
+                <div class="tip-icon">
+                    <i class="fas fa-memory"></i>
+                </div>
+                <div>
+                    <h4>Considera agregar más RAM</h4>
+                    <p>Si tu PC tiene menos de 8GB de RAM y usas programas pesados, considera actualizar la memoria. 8GB es el mínimo recomendado para Windows 10/11.</p>
+                </div>
+            </div>
+            
+            <div class="tip">
+                <div class="tip-icon">
+                    <i class="fas fa-hdd"></i>
+                </div>
+                <div>
+                    <h4>Cambia a un SSD</h4>
+                    <p>Si aún usas un disco duro mecánico (HDD), cambiarlo por un SSD (Unidad de Estado Sólido) es la mejor mejora de rendimiento que puedes hacer.</p>
+                </div>
+            </div>
+            
+            <div class="tip">
+                <div class="tip-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div>
+                    <h4>Escanea en busca de malware</h4>
+                    <p>Los virus y malware pueden ralentizar significativamente tu PC. Ejecuta un análisis completo con Windows Defender o un antivirus de confianza.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contacto -->
+        <div class="contact-section">
+            <h2>¿Necesitas más ayuda?</h2>
+            <p>Si los pasos anteriores no resuelven tu problema, contáctame directamente para asistencia personalizada.</p>
+            
+            <div class="contact-links">
+                <a href="https://wa.me/56983693215" target="_blank" class="contact-link">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp: +56983693215</span>
+                </a>
+                <a href="https://www.instagram.com/ju4n_tech._/" target="_blank" class="contact-link">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram: @ju4n_tech._</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span>ju4n</span>.Fix
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; 2023 ju4n.Fix. Soluciones prácticas para problemas de PC.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Añadir funcionalidad básica
+            const steps = document.querySelectorAll('.step');
+            
+            steps.forEach(step => {
+                step.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.01)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 200);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

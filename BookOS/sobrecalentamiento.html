@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solucionar Sobrecalentamiento - ju4n.Fix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --light: #f5f5f5;
+            --gray: #8a8a8a;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--primary);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--highlight);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--highlight);
+        }
+
+        .logo i {
+            color: var(--highlight);
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--highlight);
+        }
+
+        .solution-container {
+            padding: 3rem 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .solution-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .solution-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .problem-icon {
+            background-color: var(--accent);
+            color: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .difficulty {
+            display: inline-block;
+            background-color: #e0f2ff;
+            color: var(--accent);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .time-estimate {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .time-estimate i {
+            margin-right: 8px;
+        }
+
+        .steps-container {
+            margin-bottom: 3rem;
+        }
+
+        .step {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--accent);
+        }
+
+        .step-number {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .step h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .step-content {
+            margin-bottom: 1.5rem;
+        }
+
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            color: #856404;
+        }
+
+        .temperature-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .temperature-table th, .temperature-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .temperature-table th {
+            background-color: #f2f2f2;
+        }
+
+        .temperature-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .tips-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+            border-top: 4px solid var(--highlight);
+        }
+
+        .tips-container h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .tip {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tip:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .tip-icon {
+            background-color: #f0f8ff;
+            color: var(--accent);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-section {
+            text-align: center;
+            padding: 3rem 0;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+
+        .contact-section h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .contact-link:hover {
+            background-color: var(--highlight);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo span {
+            color: var(--highlight);
+        }
+
+        .copyright {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .solution-header h1 {
+                font-size: 2rem;
+            }
+            
+            .step {
+                padding: 1.5rem;
+            }
+            
+            .temperature-table {
+                font-size: 0.9rem;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .contact-link {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-screwdriver-wrench"></i>
+                    <span>ju4n</span>.Fix
+                </a>
+                
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Volver a problemas</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container solution-container">
+        <div class="solution-header">
+            <div class="problem-icon">
+                <i class="fas fa-thermometer-full"></i>
+            </div>
+            <h1>Solucionar Sobrecalentamiento</h1>
+            <div class="difficulty">Dificultad: Media-Alta</div>
+            <div class="time-estimate">
+                <i class="far fa-clock"></i> Tiempo estimado: 30-60 minutos
+            </div>
+        </div>
+
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Identifica los síntomas</h3>
+                <div class="step-content">
+                    <p>Primero confirma que tu PC realmente tiene problemas de temperatura:</p>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li><strong>Apagados repentinos</strong> durante uso intensivo</li>
+                        <li><strong>Rendimiento reducido</strong> (throttling) en juegos o programas</li>
+                        <li><strong>Ventiladores muy ruidosos</strong> constantemente</li>
+                        <li><strong>Carcasa caliente al tacto</strong> en áreas específicas</li>
+                        <li><strong>Errores de pantalla azul</strong> relacionados con temperatura</li>
+                    </ul>
+                    <div class="warning">
+                        <strong>¡Precaución!</strong> El sobrecalentamiento prolongado puede dañar permanentemente componentes como el procesador o la tarjeta gráfica.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Monitorea las temperaturas</h3>
+                <div class="step-content">
+                    <p>Usa software especializado para verificar las temperaturas reales de tus componentes.</p>
+                    <p><strong>Software recomendado (gratuito):</strong></p>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li><strong>HWMonitor</strong> - Muestra temperaturas de todos los componentes</li>
+                        <li><strong>Core Temp</strong> - Especializado en temperatura del procesador</li>
+                        <li><strong>MSI Afterburner</strong> - Excelente para CPU y GPU, incluye monitoreo en juegos</li>
+                        <li><strong>Speccy</strong> - Información general del sistema incluyendo temperaturas</li>
+                    </ul>
+                    <p><strong>Temperaturas normales (en reposo/carga):</strong></p>
+                    <table class="temperature-table">
+                        <tr>
+                            <th>Componente</th>
+                            <th>Temperatura Normal</th>
+                            <th>Peligro (sobre)</th>
+                        </tr>
+                        <tr>
+                            <td>CPU (Procesador)</td>
+                            <td>30-50°C / 60-80°C</td>
+                            <td>90°C+</td>
+                        </tr>
+                        <tr>
+                            <td>GPU (Tarjeta gráfica)</td>
+                            <td>35-60°C / 70-85°C</td>
+                            <td>95°C+</td>
+                        </tr>
+                        <tr>
+                            <td>SSD/NVMe</td>
+                            <td>30-50°C / 60-70°C</td>
+                            <td>80°C+</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Limpia el polvo interno</h3>
+                <div class="step-content">
+                    <p>El polvo es el enemigo número uno de la refrigeración. Bloquea flujos de aire y actúa como aislante térmico.</p>
+                    <div class="warning">
+                        <strong>¡Importante!</strong> Apaga tu PC, desenchúfala y espera 10 minutos antes de abrirla. Usa pulsera antiestática si es posible.
+                    </div>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Desatornilla y retira la tapa lateral de la carcasa</li>
+                        <li>Usa aire comprimido para limpiar (nunca soplar con la boca)</li>
+                        <li>Enfócate en: ventiladores, disipadores, filtros y rejillas</li>
+                        <li>Mantén los ventiladores quietos con un dedo mientras soplas</li>
+                        <li>Limpia los filtros de polvo si tu carcasa los tiene</li>
+                        <li>Usa un pincel suave para áreas difíciles</li>
+                        <li>Nunca uses aspiradora (genera electricidad estática)</li>
+                        <li>Vuelve a armar y conecta todo correctamente</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Mejora el flujo de aire</h3>
+                <div class="step-content">
+                    <p>Una buena circulación de aire es crucial para mantener bajas temperaturas.</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li><strong>Verifica la orientación de los ventiladores:</strong>
+                            <ul style="margin-left: 1.5rem;">
+                                <li>Frontal/inferior: entrada de aire frío</li>
+                                <li>Posterior/superior: salida de aire caliente</li>
+                            </ul>
+                        </li>
+                        <li><strong>Elimina obstrucciones:</strong> Aleja la torre de paredes, muebles y alfombras</li>
+                        <li><strong>Organiza los cables:</strong> Usa bridas para agrupar cables y mejorar el flujo de aire</li>
+                        <li><strong>Considera agregar ventiladores:</strong> Si tienes bahías vacías, instala ventiladores adicionales</li>
+                        <li><strong>Revisa la ubicación:</strong> No coloques la PC en espacios cerrados o cerca de fuentes de calor</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3>Aplica nueva pasta térmica al procesador</h3>
+                <div class="step-content">
+                    <p>La pasta térmica se seca con el tiempo (2-3 años). Reemplazarla puede bajar temperaturas significativamente.</p>
+                    <div class="warning">
+                        <strong>Solo para usuarios avanzados.</strong> Si no te sientes cómodo, busca ayuda profesional.
+                    </div>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Desconecta la PC y retira el disipador/ventilador del CPU</li>
+                        <li>Limpia el procesador y la base del disipador con alcohol isopropílico y un paño sin pelusa</li>
+                        <li>Aplica una pequeña cantidad de pasta térmica nueva (grano de arroz o guisante)</li>
+                        <li>Vuelve a colocar el disipador con presión uniforme</li>
+                        <li>Asegura los tornillos en forma de "X" (no totalmente uno tras otro)</li>
+                        <li>Conecta el ventilador a la placa madre</li>
+                        <li>Enciende y verifica temperaturas</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips-container">
+            <h2>Consejos Adicionales</h2>
+            
+            <div class="tip">
+                <div class="tip-icon">
+                    <i class="fas fa-sliders-h"></i>
+                </div>
+                <div>
+                    <h4>Ajusta configuraciones de energía</h4>
+                    <p>En Windows, ve a "Opciones de energía" y selecciona "Equilibrado" en lugar de "Alto rendimiento". También ajusta el "Estado máximo del procesador" a 95-99% para prevenir turbo boost excesivo.</p>
+                </div>
+            </div>
+            
+            <div class="tip">
+                <div class="tip-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <div>
+                    <h4>Controla la velocidad de los ventiladores</h4>
+                    <p>Usa software como SpeedFan o las utilidades del fabricante de tu placa madre para crear curvas de ventilador más agresivas. Los ventiladores a mayor RPM enfriarán mejor (aunque harán más ruido).</p>
+                </div>
+            </div>
+            
+            <div class="tip">
+                <div class="tip-icon">
+                    <i class="fas fa-snowflake"></i>
+                </div>
+                <div>
+                    <h4>Considera mejorar el sistema de refrigeración</h4>
+                    <p>Si tu PC tiene el disipador de stock (el que viene con el procesador), cambiarlo por uno mejor puede reducir temperaturas 10-20°C. Los refrigeradores por aire de torre son excelentes opciones.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <h2>¿Temperaturas aún muy altas?</h2>
+            <p>Si después de seguir estos pasos tu PC sigue sobrecalentándose, puede haber problemas de hardware más serios como ventiladores defectuosos o mala aplicación de pasta térmica.</p>
+            
+            <div class="contact-links">
+                <a href="https://wa.me/56983693215" target="_blank" class="contact-link">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp: +56983693215</span>
+                </a>
+                <a href="https://www.instagram.com/ju4n_tech._/" target="_blank" class="contact-link">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram: @ju4n_tech._</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span>ju4n</span>.Fix
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; 2023 ju4n.Fix. Soluciones prácticas para problemas de PC.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const steps = document.querySelectorAll('.step');
+            
+            steps.forEach(step => {
+                step.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.01)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 200);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

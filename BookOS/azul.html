@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solucionar Pantalla Azul - ju4n.Fix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --light: #f5f5f5;
+            --gray: #8a8a8a;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--primary);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--highlight);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--highlight);
+        }
+
+        .logo i {
+            color: var(--highlight);
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--highlight);
+        }
+
+        .solution-container {
+            padding: 3rem 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .solution-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .solution-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .problem-icon {
+            background-color: var(--accent);
+            color: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .difficulty {
+            display: inline-block;
+            background-color: #e0f2ff;
+            color: var(--accent);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .time-estimate {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .time-estimate i {
+            margin-right: 8px;
+        }
+
+        .steps-container {
+            margin-bottom: 3rem;
+        }
+
+        .step {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--accent);
+        }
+
+        .step-number {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .step h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .step-content {
+            margin-bottom: 1.5rem;
+        }
+
+        .error-code {
+            background-color: #f8f9fa;
+            border-left: 4px solid #e94560;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .tips-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+            border-top: 4px solid var(--highlight);
+        }
+
+        .tips-container h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .tip {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tip:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .tip-icon {
+            background-color: #f0f8ff;
+            color: var(--accent);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-section {
+            text-align: center;
+            padding: 3rem 0;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+
+        .contact-section h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .contact-link:hover {
+            background-color: var(--highlight);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo span {
+            color: var(--highlight);
+        }
+
+        .copyright {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .solution-header h1 {
+                font-size: 2rem;
+            }
+            
+            .step {
+                padding: 1.5rem;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .contact-link {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-screwdriver-wrench"></i>
+                    <span>ju4n</span>.Fix
+                </a>
+                
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Volver a problemas</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container solution-container">
+        <div class="solution-header">
+            <div class="problem-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h1>Solucionar Pantalla Azul (BSOD)</h1>
+            <div class="difficulty">Dificultad: Avanzada</div>
+            <div class="time-estimate">
+                <i class="far fa-clock"></i> Tiempo estimado: 30-45 minutos
+            </div>
+        </div>
+
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Anota el código de error</h3>
+                <div class="step-content">
+                    <p>Cuando aparezca la pantalla azul, anota el código de error. Suele aparecer en la parte inferior de la pantalla.</p>
+                    <div class="error-code">
+                        Ejemplo: STOP: 0x0000007B, IRQL_NOT_LESS_OR_EQUAL, etc.
+                    </div>
+                    <p><strong>Códigos comunes:</strong></p>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li><strong>0x0000007B</strong>: Problemas con el disco duro/controlador</li>
+                        <li><strong>0x00000050</strong>: Problemas de memoria RAM</li>
+                        <li><strong>0x000000D1</strong>: Problemas con controladores</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Reinicia en modo seguro</h3>
+                <div class="step-content">
+                    <p>El modo seguro carga Windows con controladores mínimos, útil para diagnosticar problemas.</p>
+                    <p><strong>Para Windows 10/11:</strong></p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Mantén presionado Shift mientras haces clic en "Reiniciar"</li>
+                        <li>Selecciona "Solucionar problemas" > "Opciones avanzadas"</li>
+                        <li>Haz clic en "Configuración de inicio"</li>
+                        <li>Presiona 4 o F4 para "Habilitar modo seguro"</li>
+                        <li>Espera a que Windows se inicie en modo seguro</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Desinstala software reciente</h3>
+                <div class="step-content">
+                    <p>Si el problema comenzó después de instalar un programa o controlador, desinstálalo.</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Abre "Configuración" > "Aplicaciones"</li>
+                        <li>Busca el software instalado recientemente</li>
+                        <li>Haz clic en él y selecciona "Desinstalar"</li>
+                        <li>Sigue las instrucciones para completar la desinstalación</li>
+                        <li>Reinicia tu PC y verifica si el problema persiste</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Actualiza o reinstala controladores</h3>
+                <div class="step-content">
+                    <p>Los controladores defectuosos son una causa común de pantallas azules.</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>En modo seguro, abre "Administrador de dispositivos"</li>
+                        <li>Busca dispositivos con icono de advertencia (triángulo amarillo)</li>
+                        <li>Haz clic derecho en el dispositivo y selecciona "Actualizar controlador"</li>
+                        <li>Elige "Buscar automáticamente controladores"</li>
+                        <li>Si no funciona, descarga el controlador del sitio del fabricante</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3>Ejecuta diagnóstico de memoria y disco</h3>
+                <div class="step-content">
+                    <p>Problemas de hardware como RAM defectuosa pueden causar pantallas azules.</p>
+                    <p><strong>Diagnóstico de memoria RAM:</strong></p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Escribe "Diagnóstico de memoria de Windows" en la búsqueda</li>
+                        <li>Haz clic en "Reiniciar ahora y comprobar si hay problemas"</li>
+                        <li>Tu PC se reiniciará y ejecutará la prueba automáticamente</li>
+                        <li>Los resultados aparecerán después del reinicio</li>
+                    </ol>
+                    <p><strong>Comprobación de disco:</strong></p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Abre el símbolo del sistema como administrador</li>
+                        <li>Escribe: <code>chkdsk C: /f /r</code> y presiona Enter</li>
+                        <li>Presiona Y para programar la verificación en el próximo reinicio</li>
+                        <li>Reinicia tu PC y espera a que complete la verificación</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips-container">
+            <h2>Consejos Adicionales</h2>
+            
+            <div class="tip">
+                <div class="tip-icon">
+                    <i class="fas fa-undo-alt"></i>
+                </div>
+                <div>
+                    <h4>Restaura el sistema</h4>
+                    <p>Si nada funciona, intenta restaurar Windows a un punto anterior cuando funcionaba correctamente. Ve a "Configuración" > "Actualización y seguridad" > "Recuperación".</p>
+                </div>
+            </div>
+            
+            <div class="tip">
+                <div class="tip-icon">
+                    <i class="fas fa-temperature-high"></i>
+                </div>
+                <div>
+                    <h4>Verifica temperatura del hardware</h4>
+                    <p>El sobrecalentamiento puede causar pantallas azules. Usa software como HWMonitor para verificar temperaturas de CPU y GPU.</p>
+                </div>
+            </div>
+            
+            <div class="tip">
+                <div class="tip-icon">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <div>
+                    <h4>Prueba la memoria RAM</h4>
+                    <p>Si sospechas de problemas con la RAM, prueba cada módulo individualmente. Retira todos menos uno y prueba si el error persiste.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <h2>¿Pantalla azul persistente?</h2>
+            <p>Si el problema continúa después de seguir estos pasos, probablemente sea un problema de hardware que requiere atención profesional.</p>
+            
+            <div class="contact-links">
+                <a href="https://wa.me/56983693215" target="_blank" class="contact-link">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp: +56983693215</span>
+                </a>
+                <a href="https://www.instagram.com/ju4n_tech._/" target="_blank" class="contact-link">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram: @ju4n_tech._</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span>ju4n</span>.Fix
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; 2023 ju4n.Fix. Soluciones prácticas para problemas de PC.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const steps = document.querySelectorAll('.step');
+            
+            steps.forEach(step => {
+                step.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.01)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 200);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

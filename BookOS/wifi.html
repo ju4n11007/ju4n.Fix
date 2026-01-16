@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solucionar Problemas de Conexión - ju4n.Fix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --light: #f5f5f5;
+            --gray: #8a8a8a;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--primary);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--highlight);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--highlight);
+        }
+
+        .logo i {
+            color: var(--highlight);
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--highlight);
+        }
+
+        .solution-container {
+            padding: 3rem 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .solution-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .solution-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .problem-icon {
+            background-color: var(--accent);
+            color: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .difficulty {
+            display: inline-block;
+            background-color: #e0f2ff;
+            color: var(--accent);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .time-estimate {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .time-estimate i {
+            margin-right: 8px;
+        }
+
+        .steps-container {
+            margin-bottom: 3rem;
+        }
+
+        .step {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--accent);
+        }
+
+        .step-number {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .step h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .step-content {
+            margin-bottom: 1.5rem;
+        }
+
+        .cmd-command {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .tips-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+            border-top: 4px solid var(--highlight);
+        }
+
+        .tips-container h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .tip {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tip:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .tip-icon {
+            background-color: #f0f8ff;
+            color: var(--accent);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-section {
+            text-align: center;
+            padding: 3rem 0;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+
+        .contact-section h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .contact-link:hover {
+            background-color: var(--highlight);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo span {
+            color: var(--highlight);
+        }
+
+        .copyright {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .solution-header h1 {
+                font-size: 2rem;
+            }
+            
+            .step {
+                padding: 1.5rem;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .contact-link {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-screwdriver-wrench"></i>
+                    <span>ju4n</span>.Fix
+                </a>
+                
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Volver a problemas</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container solution-container">
+        <div class="solution-header">
+            <div class="problem-icon">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <h1>Solucionar Problemas de Conexión</h1>
+            <div class="difficulty">Dificultad: Media</div>
+            <div class="time-estimate">
+                <i class="far fa-clock"></i> Tiempo estimado: 15-25 minutos
+            </div>
+        </div>
+
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Verifica el problema básico</h3>
+                <div class="step-content">
+                    <p>Primero identifica si el problema es con tu PC o con la red en general.</p>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li><strong>¿Otros dispositivos tienen internet?</strong> Prueba con tu teléfono u otra computadora</li>
+                        <li><strong>¿Estás conectado por Wi-Fi o cable?</strong> Prueba ambos métodos si es posible</li>
+                        <li><strong>¿El problema es en todos los sitios o solo algunos?</strong> Intenta acceder a diferentes páginas</li>
+                        <li><strong>¿Aparece el ícono de red con signo de exclamación?</strong> Esto indica problemas de conexión</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Reinicia router y PC</h3>
+                <div class="step-content">
+                    <p>El clásico pero efectivo. Reinicia ambos dispositivos en este orden:</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Apaga tu computadora completamente</li>
+                        <li>Desconecta el router/módem de la corriente eléctrica</li>
+                        <li>Espera 30 segundos exactos (esto es importante)</li>
+                        <li>Conecta el router/módem y espera a que todas las luces se estabilicen</li>
+                        <li>Enciende tu computadora</li>
+                        <li>Intenta conectarte nuevamente</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Ejecuta el solucionador de problemas de red</h3>
+                <div class="step-content">
+                    <p>Windows tiene una herramienta integrada que puede diagnosticar y reparar problemas comunes.</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Haz clic derecho en el ícono de red en la bandeja del sistema</li>
+                        <li>Selecciona "Solucionar problemas"</li>
+                        <li>Windows diagnosticará automáticamente los problemas</li>
+                        <li>Sigue las recomendaciones que te dé</li>
+                        <li>Si encuentra problemas, haz clic en "Aplicar esta corrección"</li>
+                        <li>Reinicia si es necesario</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Restablece la pila TCP/IP</h3>
+                <div class="step-content">
+                    <p>Esto resetea la configuración de red de Windows a sus valores predeterminados.</p>
+                    <p><strong>Pasos:</strong></p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Abre el símbolo del sistema como administrador</li>
+                        <li>Escribe cada uno de estos comandos y presiona Enter después de cada uno:</li>
+                    </ol>
+                    <div class="cmd-command">
+                        netsh winsock reset
+                    </div>
+                    <div class="cmd-command">
+                        netsh int ip reset
+                    </div>
+                    <div class="cmd-command">
+                        ipconfig /release
+                    </div>
+                    <div class="cmd-command">
+                        ipconfig /renew
+                    </div>
+                    <div class="cmd-command">
+                        ipconfig /flushdns
+                    </div>
+                    <p style="margin-top: 1rem;">Después de ejecutar todos los comandos, reinicia tu computadora.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3>Actualiza controladores de red</h3>
+                <div class="step-content">
+                    <p>Controladores obsoletos o corruptos pueden causar problemas de conexión.</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Presiona Windows + X y selecciona "Administrador de dispositivos"</li>
+                        <li>Expande la sección "Adaptadores de red"</li>
+                        <li>Haz clic derecho en tu adaptador de red (Wi-Fi o Ethernet)</li>
+                        <li>Selecciona "Actualizar controlador"</li>
+                        <li>Elige "Buscar automáticamente controladores"</li>
+                        <li>Si Windows no encuentra nada, visita el sitio del fabricante de tu PC</li>
+                        <li>Descarga e instala los controladores más recientes</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips-container">
+            <h2>Consejos Adicionales</h2>
+            
+            <div class="tip">
+                <div class="tip-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <div>
+                    <h4>Cambia el canal del Wi-Fi</h4>
+                    <p>Si vives en un área con muchas redes Wi-Fi, pueden estar interfiriendo. Accede a la configuración de tu router (generalmente 192.168.1.1 o 192.168.0.1) y cambia el canal a 1, 6 u 11.</p>
+                </div>
+            </div>
+            
+            <div class="tip">
+                <div class="tip-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div>
+                    <h4>Desactiva temporalmente el firewall/antivirus</h4>
+                    <p>A veces, software de seguridad puede bloquear la conexión. Desactívalo temporalmente para probar. Si funciona, ajusta las reglas del firewall para permitir tu conexión.</p>
+                </div>
+            </div>
+            
+            <div class="tip">
+                <div class="tip-icon">
+                    <i class="fas fa-plug"></i>
+                </div>
+                <div>
+                    <h4>Prueba con cable Ethernet</h4>
+                    <p>Si es posible, conecta tu PC directamente al router con un cable Ethernet. Si funciona, el problema es con tu Wi-Fi. Puede ser la tarjeta Wi-Fi, el router, o interferencias.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <h2>¿Problemas de conexión persistente?</h2>
+            <p>Si sigues sin poder conectarte después de todos estos pasos, puede ser un problema de hardware que requiere diagnóstico profesional.</p>
+            
+            <div class="contact-links">
+                <a href="https://wa.me/56983693215" target="_blank" class="contact-link">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp: +56983693215</span>
+                </a>
+                <a href="https://www.instagram.com/ju4n_tech._/" target="_blank" class="contact-link">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram: @ju4n_tech._</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span>ju4n</span>.Fix
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; 2023 ju4n.Fix. Soluciones prácticas para problemas de PC.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const steps = document.querySelectorAll('.step');
+            
+            steps.forEach(step => {
+                step.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.01)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 200);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

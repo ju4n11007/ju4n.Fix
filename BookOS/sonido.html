@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solucionar Problemas de Audio - ju4n.Fix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --light: #f5f5f5;
+            --gray: #8a8a8a;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--primary);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--highlight);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--highlight);
+        }
+
+        .logo i {
+            color: var(--highlight);
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--highlight);
+        }
+
+        .solution-container {
+            padding: 3rem 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .solution-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .solution-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .problem-icon {
+            background-color: var(--accent);
+            color: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .difficulty {
+            display: inline-block;
+            background-color: #e0f2ff;
+            color: var(--accent);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .time-estimate {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .time-estimate i {
+            margin-right: 8px;
+        }
+
+        .steps-container {
+            margin-bottom: 3rem;
+        }
+
+        .step {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--accent);
+        }
+
+        .step-number {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .step h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .step-content {
+            margin-bottom: 1.5rem;
+        }
+
+        .audio-check {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .tips-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+            border-top: 4px solid var(--highlight);
+        }
+
+        .tips-container h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .tip {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tip:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .tip-icon {
+            background-color: #f0f8ff;
+            color: var(--accent);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-section {
+            text-align: center;
+            padding: 3rem 0;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+
+        .contact-section h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .contact-link:hover {
+            background-color: var(--highlight);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo span {
+            color: var(--highlight);
+        }
+
+        .copyright {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .solution-header h1 {
+                font-size: 2rem;
+            }
+            
+            .step {
+                padding: 1.5rem;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .contact-link {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-screwdriver-wrench"></i>
+                    <span>ju4n</span>.Fix
+                </a>
+                
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Volver a problemas</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container solution-container">
+        <div class="solution-header">
+            <div class="problem-icon">
+                <i class="fas fa-volume-mute"></i>
+            </div>
+            <h1>Solucionar Problemas de Audio</h1>
+            <div class="difficulty">Dificultad: Media</div>
+            <div class="time-estimate">
+                <i class="far fa-clock"></i> Tiempo estimado: 15-25 minutos
+            </div>
+        </div>
+
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Verifica lo básico</h3>
+                <div class="step-content">
+                    <p>Antes de hacer cambios complejos, verifica lo obvio:</p>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li><strong>¿Los altavoces/auriculares están enchufados?</strong> Verifica las conexiones</li>
+                        <li><strong>¿El volumen está silenciado?</strong> Revisa el icono de volumen en la bandeja</li>
+                        <li><strong>¿Están encendidos los altavoces externos?</strong> Verifica el botón de encendido</li>
+                        <li><strong>¿Probaste con otros auriculares/altavoces?</strong> Descarta problemas del hardware</li>
+                        <li><strong>¿El problema es en todas las aplicaciones?</strong> Prueba diferentes programas</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Ejecuta el solucionador de problemas de audio</h3>
+                <div class="step-content">
+                    <p>Windows tiene una herramienta integrada que puede diagnosticar problemas de audio.</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Haz clic derecho en el icono de volumen en la bandeja del sistema</li>
+                        <li>Selecciona "Solucionar problemas de sonido"</li>
+                        <li>Windows comenzará a diagnosticar automáticamente</li>
+                        <li>Sigue las instrucciones en pantalla</li>
+                        <li>Si encuentra problemas, aplica las correcciones sugeridas</li>
+                        <li>Reinicia tu PC si se te solicita</li>
+                    </ol>
+                    <div class="audio-check">
+                        <strong>Nota:</strong> Esta herramienta verifica controladores, configuraciones y problemas comunes de hardware.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Verifica el dispositivo de reproducción</h3>
+                <div class="step-content">
+                    <p>A veces Windows usa el dispositivo de audio incorrecto.</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Haz clic derecho en el icono de volumen en la bandeja</li>
+                        <li>Selecciona "Abrir configuración de sonido"</li>
+                        <li>En "Salida", verifica que el dispositivo correcto esté seleccionado</li>
+                        <li>Haz clic en "Administrar dispositivos de sonido"</li>
+                        <li>Asegúrate de que el dispositivo que quieres usar esté "Habilitado"</li>
+                        <li>Si hay múltiples dispositivos, deshabilita los que no uses</li>
+                        <li>Haz clic en "Probar" para verificar si funciona</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Actualiza o reinstala controladores de audio</h3>
+                <div class="step-content">
+                    <p>Controladores obsoletos o corruptos son una causa común de problemas de audio.</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Presiona Windows + X y selecciona "Administrador de dispositivos"</li>
+                        <li>Expande la sección "Controladores de sonido, video y juegos"</li>
+                        <li>Haz clic derecho en tu dispositivo de audio (Realtek, Conexant, etc.)</li>
+                        <li>Selecciona "Actualizar controlador"</li>
+                        <li>Elige "Buscar automáticamente controladores"</li>
+                        <li>Si Windows no encuentra nada, ve al sitio del fabricante de tu PC</li>
+                        <li>Descarga e instala los controladores más recientes</li>
+                        <li>Si el problema persiste, selecciona "Desinstalar dispositivo" y reinicia</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3>Revisa servicios y configuraciones de Windows</h3>
+                <div class="step-content">
+                    <p>Algunos servicios de Windows pueden afectar el funcionamiento del audio.</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Presiona Windows + R, escribe "services.msc" y presiona Enter</li>
+                        <li>Busca el servicio "Windows Audio"</li>
+                        <li>Asegúrate de que esté "En ejecución" y el tipo de inicio sea "Automático"</li>
+                        <li>Si no está en ejecución, haz clic derecho y selecciona "Iniciar"</li>
+                        <li>Busca también "Windows Audio Endpoint Builder" y verifica lo mismo</li>
+                        <li>Reinicia ambos servicios si es necesario</li>
+                    </ol>
+                    <p><strong>Configuración adicional:</strong></p>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Abre "Panel de control" > "Sonido" > pestaña "Comunicaciones"</li>
+                        <li>Selecciona "No hacer nada" para evitar que Windows reduzca el volumen automáticamente</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips-container">
+            <h2>Consejos Adicionales</h2>
+            
+            <div class="tip">
+                <div class="tip-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <div>
+                    <h4>Restaura el sistema</h4>
+                    <p>Si el problema comenzó recientemente después de una actualización o instalación, intenta restaurar Windows a un punto anterior cuando el audio funcionaba correctamente.</p>
+                </div>
+            </div>
+            
+            <div class="tip">
+                <div class="tip-icon">
+                    <i class="fas fa-broom"></i>
+                </div>
+                <div>
+                    <h4>Limpia las conexiones de audio</h4>
+                    <p>Si usas audio por conector de 3.5mm, el polvo puede interferir. Apaga tu PC, desconecta los auriculares/altavoces y limpia suavemente el conector y el puerto con aire comprimido.</p>
+                </div>
+            </div>
+            
+            <div class="tip">
+                <div class="tip-icon">
+                    <i class="fas fa-headphones-alt"></i>
+                </div>
+                <div>
+                    <h4>Prueba audio por USB o Bluetooth</h4>
+                    <p>Si el problema es con el audio por conector de 3.5mm, prueba con auriculares USB o Bluetooth. Si funcionan, el problema puede ser con la tarjeta de sonido integrada.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <h2>¿Sigues sin audio?</h2>
+            <p>Si después de todos estos pasos tu PC sigue sin producir sonido, puede ser un problema de hardware que requiere diagnóstico profesional.</p>
+            
+            <div class="contact-links">
+                <a href="https://wa.me/56983693215" target="_blank" class="contact-link">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp: +56983693215</span>
+                </a>
+                <a href="https://www.instagram.com/ju4n_tech._/" target="_blank" class="contact-link">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram: @ju4n_tech._</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span>ju4n</span>.Fix
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; 2023 ju4n.Fix. Soluciones prácticas para problemas de PC.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const steps = document.querySelectorAll('.step');
+            
+            steps.forEach(step => {
+                step.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.01)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 200);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
